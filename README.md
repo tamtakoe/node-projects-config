@@ -169,12 +169,12 @@ configs object
 {
     project1: {
         public: {
-            resources: 'publicResource1'
+            resources: 'resource1'
         }
     },
     project2: {
         public: {
-            resources: 'publicResource2'
+            resources: 'resource2'
         }
     }
 }
@@ -183,8 +183,8 @@ configs object
 config.js
 ```js
 {
-    project1: 'publicResource1',
-    project2: 'publicResource2'
+    project1: 'resource1',
+    project2: 'resource2'
 }
 ```
 
