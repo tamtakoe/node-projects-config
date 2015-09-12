@@ -170,17 +170,11 @@ configs object
     project1: {
         public: {
             resources: 'publicResource1'
-        },
-        private: {
-            resources: 'privateResource1'
         }
     },
     project2: {
         public: {
             resources: 'publicResource2'
-        },
-        private: {
-            resources: 'privateResource2'
         }
     }
 }
