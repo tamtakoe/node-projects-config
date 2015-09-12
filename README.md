@@ -21,7 +21,7 @@ projects
       |- default.json
    |- otherFiles
 |- main
-    |- config //public config
+   |- config //public config
       |- default.json
       |- dev.json
       |- production.json
@@ -65,8 +65,7 @@ Contents
 }
 ```
 
-
-
+Usage
 ```js
 var configs = require('projects-config');
 process.env.NODE_ENV = 'production';
@@ -76,7 +75,7 @@ configs.load('projects/**/config', 'configs');
 console.log(configs.admin.secretKey) //'YYYY'
 ```
 
-All configs for `production`:
+Configs for `production`
 ```js
 {
     admin: {
@@ -98,8 +97,7 @@ All configs for `production`:
 
 ## Features
 
-Plugin provides `json`, `json5`, `hjson`, `toml`, `yaml`, `cson`, `properties` file formats. It uses loader from [node-config](//github.com/lorenwest/node-config).
-[More information](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-formats)
+Plugin provides `json`, `json5`, `hjson`, `toml`, `yaml`, `cson`, `properties` file formats. It uses loader from [node-config](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-formats)
 
 ## API
 ### configs.load([publicPath][, localPath][, params])
@@ -166,33 +164,33 @@ configs.stream({section: 'public.resources'})
     .pipe(gulp.dest(compiledPath));
 ``` 
 
-`configs`:
+configs object
 ```js
 {
     project1: {
         public: {
-            resources: [1.1,1.2,1.3]
+            resources: 'publicResource1'
         },
         private: {
-            resources: [1.5,1.6,1.7]
+            resources: 'privateResource1'
         }
     },
     project2: {
         public: {
-            resources: [2.1,2.2,2.3]
+            resources: 'publicResource2'
         },
         private: {
-            resources: [2.5,2.6,2.7]
+            resources: 'privateResource2'
         }
     }
 }
 ```
 
-`config.js`:
+config.js
 ```js
 {
-    project1: [1.1,1.2,1.3],
-    project2: [2.1,2.2,2.3]
+    project1: 'publicResource1',
+    project2: 'publicResource2'
 }
 ```
 
