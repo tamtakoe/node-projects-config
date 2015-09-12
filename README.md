@@ -9,21 +9,19 @@ npm install projects-config
 ```
 
 ## Usage
-F. e. we have two projects: main, admin and two types of environments: dev, production
+F. e. we have two projects: `main`, `admin` and two types of environments: `dev`, `production`
 
-```
-configs (local configs)
+```js
+configs //local configs
 |- admin
    |- production.json
-|- main
-   |- default.json
 projects
 |- admin
-   |- config (public config)
+   |- config //public config
       |- default.json
    |- otherFiles
 |- main
-    |- config (public config)
+    |- config //public config
       |- default.json
       |- dev.json
       |- production.json
@@ -34,53 +32,36 @@ Contents
 ```js
 //projects.main.config.default.json:
 {
-    public: {
-        resources: {
-            geoApi: '//maps.googleapis.com/maps/api/js'
-        }
+    resources: {
+        geoApi: '//maps.googleapis.com/maps/api/js'
     }
 }
 
 //projects.main.config.dev.json:
 {
-    public: {
-        resources: {
-            api: '//dev.mysite.com/api'
-        }
+    resources: {
+        api: '//dev.mysite.com/api'
     }
 }
 
 //projects.main.config.production.json:
 {
-    public: {
-        resources: {
-            api: '//mysite.com/api'
-        }
+    resources: {
+        api: '//mysite.com/api'
     }
 }
 
 //projects.admin.config.default.json:
 {
     inherit: 'main'
-    public: {
-        resources: {
-            adminApi: '//admin.mysite.com/api'
-        }
-    }
-}
-
-//configs.main.default.json:
-{
-    private: {
-        gulpPluginSecretKey: 'XXXX'
+    resources: {
+        adminApi: '//admin.mysite.com/api'
     }
 }
 
 //configs.admin.production.json:
 {
-    public: {
-        secretKey: 'YYYY'
-    }
+    secretKey: 'YYYY'
 }
 ```
 
@@ -88,36 +69,28 @@ Contents
 
 ```js
 var configs = require('projects-config');
-
 process.env.NODE_ENV = 'production';
 
 configs.load('projects/**/config', 'configs');
 
-console.log(configs);
+console.log(configs.admin.secretKey) //'YYYY'
 ```
 
-Config for `production`:
+All configs for `production`:
 ```js
 {
     admin: {
-       public: {
-           resources: {
-               api: '//mysite.com/api',
-               geoApi: '//maps.googleapis.com/maps/api/js',
-               adminApi: '//admin.mysite.com/api',
-               secretKey: 'YYYY'
-           }
-       }
+       resources: {
+           api: '//mysite.com/api',
+           geoApi: '//maps.googleapis.com/maps/api/js',
+           adminApi: '//admin.mysite.com/api',
+       },
+       secretKey: 'YYYY'
    },
    main: {
-      public: {
-          resources: {
-              api: '//mysite.com/api',
-              geoApi: '//maps.googleapis.com/maps/api/js'
-          }
-      },
-      private: {
-          gulpPluginSecretKey: 'XXXX'
+      resources: {
+          api: '//mysite.com/api',
+          geoApi: '//maps.googleapis.com/maps/api/js'
       }
   }
 }
