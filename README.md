@@ -13,18 +13,18 @@ F. e. we have two projects: `main`, `admin` and two types of environments: `dev`
 
 ```js
 configs //local configs
-|──admin
-|  └──production.json
+├──admin
+│  └──production.json
 projects
-|──admin
-|  |──config //public config
-|  |  └──default.json
-|  └──otherFiles
+├──admin
+│  ├──config //public config
+│  │  └──default.json
+│  └──otherFiles
 └──main
-   |──config //public config
-   |  |──default.json
-   |  |──dev.json
-   |  └──production.json
+   ├──config //public config
+   │  ├──default.json
+   │  ├──dev.json
+   │  └──production.json
    └──otherFiles
 ```
 
