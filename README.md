@@ -12,20 +12,20 @@ npm install projects-config
 F. e. we have two projects: `main`, `admin` and two types of environments: `dev`, `production`
 
 ```js
-configs //local configs
-├──admin
-│  └──production.json
-projects
-├──admin
-│  ├──config //public config
-│  │  └──default.json
-│  └──otherFiles
-└──main
-   ├──config //public config
-   │  ├──default.json
-   │  ├──dev.json
-   │  └──production.json
-   └──otherFiles
+configs/ //local configs
+ ├──admin/
+ │    └──production.json
+projects/
+ ├──admin/
+ │    ├──config/ //public config
+ │    │    └──default.json
+ │    └──otherFiles
+ └──main/
+       ├──config/ //public config
+       │    ├──default.json
+       │    ├──dev.json
+       │    └──production.json
+       └──otherFiles
 ```
 
 Contents
