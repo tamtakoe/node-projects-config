@@ -25,16 +25,18 @@ Config.prototype.load = function compile(publicPath, localPath, params) {
         publicPath = undefined;
     }
 
-    params     = params || {};
-    publicPath = publicPath || 'config';
-    params.env = params.env || process.env.NODE_ENV;
+    params         = params || {};
+    publicPath     = publicPath || 'config';
+    params.env     = params.env || process.env.NODE_ENV;
+    params.project = params.project || process.env.PROJECT;
 
     var setDefaultConfig = typeof params.defaults === 'function' ? params.defaults : function(env, projectName) {
         return params.defaults || {env: env, project: projectName};
     };
 
-    var def = params.defaultFileName || 'default',
-        env = params.env || def;
+    var def     = params.defaultFileName || 'default',
+        env     = params.env || def,
+        project = params.project === '*' ? undefined : params.project;
 
     var publicDirPaths = publicPath ? glob.sync(publicPath, params) : [];
     var localDirPaths  = localPath  ? glob.sync(localPath, params)  : [];
@@ -42,7 +44,16 @@ Config.prototype.load = function compile(publicPath, localPath, params) {
     var publicConfigs = findConfigs(publicDirPaths);
     var localConfigs  = findConfigs(localDirPaths, {ignoreErrors: true});
 
-    _.merge(this, publicConfigs, localConfigs, mergeWithoutArrays);
+    var configs = _.merge(this, publicConfigs, localConfigs, mergeWithoutArrays);
+
+    //Stay config for one project
+    if (project) {
+        _.forEach(configs, function(config, projectName) {
+            if (projectName !== project) {
+                delete configs[projectName];
+            }
+        })
+    }
 
     function findConfigs(directoriesPaths, params) {
         var configs = {};
@@ -132,12 +143,10 @@ Config.prototype.stream = function compile(params) {
         config = this,
         projectConfigs = {};
 
-    function save(conf, project) {
-        project = project || '';
-
+    function save(projectConfig, projectName) {
         var file = new gutil.File({
-            path: path.join(project, params.name || 'config.js'),
-            contents: new Buffer(JSON.stringify(conf, null, params.stringifySpace || 4))
+            path: path.join(projectName || '', params.name || 'config.js'),
+            contents: new Buffer(JSON.stringify(projectConfig, null, params.stringifySpace || 4))
         });
 
         stream.write(file);
@@ -157,32 +166,17 @@ Config.prototype.stream = function compile(params) {
 };
 
 
-Config.prototype.forEach = function(streams, selector, callback) {
-    var projects = this;
+Config.prototype.forEach = function(section, callback) {
+    var streams = [];
 
-    if (!selector && !callback) {
-        callback = streams;
-        streams = [];
+    if (!callback) {
+        callback = section;
+        section = undefined;
     }
 
-    if (!callback && typeof streams === 'string') {
-        callback = selector;
-        selector = streams;
-        streams = [];
-    }
-
-    if (!callback && typeof streams === 'object') {
-        callback = selector;
-    }
-
-    if (process.env.PROJECT !== '*') {
-        projects = {};
-        projects[process.env.PROJECT] = this[process.env.PROJECT];
-    }
-
-    _.forEach(projects, function(configs, projectName) {
-        if (selector) {
-            configs = _.get(configs, selector, {});
+    _.forEach(this, function(configs, projectName) {
+        if (section) {
+            configs = _.get(configs, section, {});
         } else {
             configs = configs || {};
         }
@@ -202,14 +196,7 @@ Config.prototype.forEach = function(streams, selector, callback) {
 };
 
 Config.prototype.reduce = function(callback, initial, thisArg, right) {
-    var projects = this;
-
-    if (process.env.PROJECT !== '*') {
-        projects = {};
-        projects[process.env.PROJECT] = this[process.env.PROJECT];
-    }
-
-    return right ? _.reduceRight(projects, callback, initial) : _.reduce(projects, callback, initial);
+    return right ? _.reduceRight(this, callback, initial) : _.reduce(this, callback, initial);
 };
 
 Config.prototype.reduceRight = function(callback, initial, thisArg) {

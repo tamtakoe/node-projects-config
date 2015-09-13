@@ -129,6 +129,14 @@ Default: `process.env.NODE_ENV`
 
 Environment
 
+##### project
+Type: `String`
+
+Default: `process.env.PROJECT`
+
+Set project name if you need result configs for one project. Set `undefined/false/null` or `'*'` for all projects
+
+
 ##### defaultFileName
 Type: `String`
 
@@ -202,23 +210,77 @@ Type: `String`
 
 Part of config which will be used for forming of config file
 
-    
-### configs.forEach([streams,][selector,] callback)
+##### stringifySpace
+Type: `Number`
 
-Create projects config stream    
+Default: `4`
+
+Number of whitespaces of `JSON.stringify`
+
+ 
+### configs.forEach([section,] callback)
+
+Executes a provided function once per project. If iterated part of configs is an array it will be provided function once per array element
+
+configs object
+```js
+{
+    admin: {
+        webserver: {port: 7001}
+    },
+    main: {
+        webserver: [
+            {port: 7002},
+            {port: 7003}
+        ]
+    }
+}
+```
+
+```js
+configs.forEach('webserver', function(config, projectName) {
+    console.log(projectName, config);
+})
+
+//log:
+//admin {port: 7001}
+//main {port: 7002}
+//main {port: 7003}
+```
 
 #### params
 
-##### streams
-Type: `Array`
-
-
-##### selector
+##### section
 Type: `String`
+
+Part of config which will be used for forming of config file
 
 
 ##### callback
 Type: `Function`
+
+Function to execute for each element, taking two arguments:
+
+`config` project config or section of project config
+
+`projectName` project name
+
+#### returns
+Type: `Stream`
+
+Total stream composed of streams which were returned in callbacks
+
+
+### configs.reduce(callback)
+
+Applies a function against an accumulator and each project config (from left-to-right) to reduce it to a single stream.
+Wrap of [lodash reduce](https://lodash.com/docs#reduce)
+
+### configs.reduceRight(callback)
+
+Applies a function against an accumulator and each project config (from left-to-right) to reduce it to a single stream.
+Wrap of [lodash reduceRight](https://lodash.com/docs#reduceRight)
+
 
 
 ## License
