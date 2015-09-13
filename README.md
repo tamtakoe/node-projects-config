@@ -11,21 +11,21 @@ npm install projects-config
 ## Usage
 F. e. we have two projects: `main`, `admin` and two types of environments: `dev`, `production`
 
-```js
-configs/ //local configs
+```
+configs/                         * local configs
  ├──admin/
- │    └──production.json
+ │   └──production.json
 projects/
  ├──admin/
- │    ├──config/ //public config
- │    │    └──default.json
- │    └──otherFiles
+ │   ├──config/               * public config
+ │   │   └──default.json
+ │   └──otherFiles
  └──main/
-       ├──config/ //public config
-       │    ├──default.json
-       │    ├──dev.json
-       │    └──production.json
-       └──otherFiles
+      ├──config/               * public config
+      │   ├──default.json
+      │   ├──dev.json
+      │   └──production.json
+      └──otherFiles
 ```
 
 Contents
