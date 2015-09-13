@@ -13,19 +13,19 @@ F. e. we have two projects: `main`, `admin` and two types of environments: `dev`
 
 ```js
 configs //local configs
-|??admin
-|  ???production.json
+|──admin
+|  └──production.json
 projects
-|??admin
-|  |??config //public config
-|  |  ???default.json
-|  ???otherFiles
-???main
-   |??config //public config
-   |  |??default.json
-   |  |??dev.json
-   |  ???production.json
-   ???otherFiles
+|──admin
+|  |──config //public config
+|  |  └──default.json
+|  └──otherFiles
+└──main
+   |──config //public config
+   |  |──default.json
+   |  |──dev.json
+   |  └──production.json
+   └──otherFiles
 ```
 
 Contents
@@ -285,5 +285,5 @@ Wrap of [lodash reduceRight](https://lodash.com/docs#reduceRight)
 
 ## License
 
-� Oleg Istomin 2015.
+© Oleg Istomin 2015.
 Released under the MIT license
