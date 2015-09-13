@@ -12,64 +12,26 @@ npm install projects-config
 F. e. we have two projects: `main`, `admin` and two types of environments: `dev`, `production`
 
 ```
-configs/                      * local configs
+configs/                       * local configs
  ├──admin/
- │   └──production.json
+ │   └──production.json     { secretKey: 'YYYY' }
  │
 projects/
  ├──admin/
  │   ├──config/                * public config
- │   │   └──default.json
+ │   │   └──default.json      { resources: {adminApi: '//admin.mysite.com/api'} }
  │   │
  │   └──otherFiles
  │
  └──main/
       ├──config/               * public config
-      │   ├──default.json
-      │   ├──dev.json
-      │   └──production.json
+      │   ├──default.json     { resources: {geoApi: '//maps.googleapis.com/maps/api/js'} }
+      │   ├──dev.json         { resources: {api: '//dev.mysite.com/api'} }
+      │   └──production.json  { resources: {api: '//mysite.com/api'} }
       │
       └──otherFiles
 ```
 
-Contents
-```js
-//projects.main.config.default.json:
-{
-    resources: {
-        geoApi: '//maps.googleapis.com/maps/api/js'
-    }
-}
-
-//projects.main.config.dev.json:
-{
-    resources: {
-        api: '//dev.mysite.com/api'
-    }
-}
-
-//projects.main.config.production.json:
-{
-    resources: {
-        api: '//mysite.com/api'
-    }
-}
-
-//projects.admin.config.default.json:
-{
-    inherit: 'main'
-    resources: {
-        adminApi: '//admin.mysite.com/api'
-    }
-}
-
-//configs.admin.production.json:
-{
-    secretKey: 'YYYY'
-}
-```
-
-Usage
 ```js
 var configs = require('projects-config');
 process.env.NODE_ENV = 'production';
