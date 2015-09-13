@@ -14,20 +14,20 @@ F. e. we have two projects: `main`, `admin` and two types of environments: `dev`
 ```
 configs/                       * local configs
  ├──admin/
- │   └──production.json     { secretKey: 'YYYY' }
+ │   └──production.json        * { secretKey: 'YYYY' }
  │
 projects/
  ├──admin/
  │   ├──config/                * public config
- │   │   └──default.json      { resources: {adminApi: '//admin.mysite.com/api'} }
+ │   │   └──default.json       * { resources: {adminApi: '//admin.mysite.com/api'} }
  │   │
  │   └──otherFiles
  │
  └──main/
       ├──config/               * public config
-      │   ├──default.json     { resources: {geoApi: '//maps.googleapis.com/maps/api/js'} }
-      │   ├──dev.json         { resources: {api: '//dev.mysite.com/api'} }
-      │   └──production.json  { resources: {api: '//mysite.com/api'} }
+      │   ├──default.json      * { resources: {geoApi: '//maps.googleapis.com/maps/api/js'} }
+      │   ├──dev.json          * { resources: {api: '//dev.mysite.com/api'} }
+      │   └──production.json   * { resources: {api: '//mysite.com/api'} }
       │
       └──otherFiles
 ```
@@ -38,27 +38,23 @@ process.env.NODE_ENV = 'production';
 
 configs.load('projects/**/config', 'configs');
 
-console.log(configs.admin.secretKey) //'YYYY'
-```
-
-Configs for `production`
-```js
-{
-    admin: {
-       resources: {
-           api: '//mysite.com/api',
-           geoApi: '//maps.googleapis.com/maps/api/js',
-           adminApi: '//admin.mysite.com/api',
-       },
-       secretKey: 'YYYY'
-   },
-   main: {
-      resources: {
-          api: '//mysite.com/api',
-          geoApi: '//maps.googleapis.com/maps/api/js'
-      }
-  }
-}
+console.log(configs);
+//{
+//    admin: {
+//       resources: {
+//           api: '//mysite.com/api',
+//           geoApi: '//maps.googleapis.com/maps/api/js',
+//           adminApi: '//admin.mysite.com/api',
+//       },
+//       secretKey: 'YYYY'
+//   },
+//   main: {
+//      resources: {
+//          api: '//mysite.com/api',
+//          geoApi: '//maps.googleapis.com/maps/api/js'
+//      }
+//  }
+//}
 ```
 
 ## Features
