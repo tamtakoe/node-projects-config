@@ -12,7 +12,7 @@ npm install projects-config
 F. e. we have two projects: `main`, `admin` and two types of environments: `dev`, `production`
 
 ```
-configs/                       * local configs
+configs/                       * local configs (not in the repository)
  ├──admin/
  │   └──production.json        * {secretKey: 'YYYY'}
  │
@@ -129,15 +129,18 @@ Type: `Object/Function`
 
 Default: `function(env, projectName) { return {env: env, project: projectName}; };`
 
-Sets default structure for each config. You can use `this` as link on config object
+Sets default structure for each config. You can use `this` as link on config of current project 
 
 ```js
 function setDefaultConfig(env, projectName) {
+    var public = this.public || {};
+    public.project = projectName; //add projectName to `public` in result configs
+    
     return {
         project: projectName
-        public: {}
+        public: public
         private: {
-            public: this.public
+            public: public //copy `public` to `private`
         }
     };
 }
