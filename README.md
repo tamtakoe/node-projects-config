@@ -39,7 +39,6 @@ process.env.NODE_ENV = 'production';
 configs.load('projects/**/config', 'configs');
 
 console.log(configs);
-
 //log:
 //{
 //    admin: {
@@ -104,7 +103,6 @@ Set project name if you need config for one project. Set `undefined/false/null` 
 configs.load('projects/**/config', {project: 'main'});
 
 console.log(configs);
-
 //log:
 //{
 //   main: {
