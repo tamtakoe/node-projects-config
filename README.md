@@ -39,6 +39,8 @@ process.env.NODE_ENV = 'production';
 configs.load('projects/**/config', 'configs');
 
 console.log(configs);
+
+//log:
 //{
 //    admin: {
 //       resources: {
@@ -102,6 +104,8 @@ Set project name if you need config for one project. Set `undefined/false/null` 
 configs.load('projects/**/config', {project: 'main'});
 
 console.log(configs);
+
+//log:
 //{
 //   main: {
 //      resources: {
@@ -238,12 +242,12 @@ Total stream composed of streams which were returned in callbacks
 ### configs.reduce(callback)
 
 Applies a function against an accumulator and each project config (from left-to-right) to reduce it to a single stream.
-It is wrapper of [lodash reduce](https://lodash.com/docs#reduce)
+It is wrapper of [_.reduce](https://lodash.com/docs#reduce)
 
 ### configs.reduceRight(callback)
 
 Applies a function against an accumulator and each project config (from left-to-right) to reduce it to a single stream.
-It is wrapper of [lodash reduceRight](https://lodash.com/docs#reduceRight)
+It is wrapper of [_.reduceRight](https://lodash.com/docs#reduceRight)
 
 
 
