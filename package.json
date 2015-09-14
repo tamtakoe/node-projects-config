@@ -12,6 +12,7 @@
     "url": "git://github.com/tamtakoe/node-projects-config.git"
   },
   "keywords": [
+    "configuration",
     "config",
     "environment",
     "env",
