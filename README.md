@@ -14,7 +14,7 @@ F. e. we have two projects: `main`, `admin` and two types of environments: `dev`
 ```
 configs/                       * local configs
  ├──admin/
- │   └──production.json        * { secretKey: 'YYYY' }
+ │   └──production.json        * {secretKey: 'YYYY'}
  │
 projects/
  ├──admin/
@@ -59,25 +59,25 @@ console.log(configs);
 
 ## Features
 
-Plugin provides `json`, `json5`, `hjson`, `toml`, `yaml`, `cson`, `properties` file formats. It uses loader from [node-config](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-formats)
+Plugin provides `json`, `json5`, `hjson`, `toml`, `yaml`, `cson`, `properties` file formats. See [node-config](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-formats)
 
 ## API
 ### configs.load([publicPath][, localPath][, params])
 
-Load configs from config's directories to `configs` object
+Load configs from config's directories
 
 #### publicPath
 Type: `String`
 
 Default: `'config'`
 
-The path pattern to the directory with the public configurations. [About glob patterns](https://www.npmjs.com/package/glob)
+The [path pattern](https://www.npmjs.com/package/glob) to the directory with the public configurations.
 Plugin throws error if can not find config for current environment
 
 #### localPath
 Type: `String`
 
-The path pattern to the directory with the local configurations. [About glob patterns](https://www.npmjs.com/package/glob)
+The [path pattern](https://www.npmjs.com/package/glob) to the directory with the local configurations.
 Plugin doesn't throw error if can not find config for current environment. It will use the default configuration.
 Local configs merge to public configs.
 Usually local configs are stored only on the local machine (not in the repository)
@@ -96,7 +96,21 @@ Type: `String`
 
 Default: `process.env.PROJECT`
 
-Set project name if you need result configs for one project. Set `undefined/false/null` or `'*'` for all projects
+Set project name if you need config for one project. Set `undefined/false/null` or `'*'` for all projects
+
+```js
+configs.load('projects/**/config', {project: 'main'});
+
+console.log(configs);
+//{
+//   main: {
+//      resources: {
+//          api: '//mysite.com/api',
+//          geoApi: '//maps.googleapis.com/maps/api/js'
+//      }
+//  }
+//}
+```
 
 
 ##### defaultFileName
@@ -111,7 +125,7 @@ Type: `Object/Function`
 
 Default: `function(env, projectName) { return {env: env, project: projectName}; };`
 
-Sets default structure for each config. You can use this as link on config object
+Sets default structure for each config. You can use `this` as link on config object
 
 ```js
 function setDefaultConfig(env, projectName) {
@@ -130,25 +144,15 @@ function setDefaultConfig(env, projectName) {
 Create projects config stream
 
 ```js
+//configs:
+//{
+//    project1: { public: {resources: 'resource1'} },
+//    project2: {public: {resources: 'resource2'} }
+//}
+
 configs.stream({section: 'public.resources'})
     .pipe(gulp.dest(compiledPath));
 ``` 
-
-configs object
-```js
-{
-    project1: {
-        public: {
-            resources: 'resource1'
-        }
-    },
-    project2: {
-        public: {
-            resources: 'resource2'
-        }
-    }
-}
-```
 
 config.js
 ```js
