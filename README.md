@@ -147,19 +147,19 @@ Create projects config stream
 //configs:
 //{
 //    project1: { public: {resources: 'resource1'} },
-//    project2: {public: {resources: 'resource2'} }
+//    project2: { public: {resources: 'resource2'} }
 //}
 
 configs.stream({section: 'public.resources'})
     .pipe(gulp.dest(compiledPath));
 ``` 
 
-config.js
 ```js
-{
-    project1: 'resource1',
-    project2: 'resource2'
-}
+//config.js
+//{
+//    project1: 'resource1',
+//    project2: 'resource2'
+//}
 ```
 
 #### params
@@ -188,22 +188,20 @@ Number of whitespaces of `JSON.stringify`
 
 Executes a provided function once per project. If iterated part of configs is an array it will be provided function once per array element
 
-configs object
 ```js
-{
-    admin: {
-        webserver: {port: 7001}
-    },
-    main: {
-        webserver: [
-            {port: 7002},
-            {port: 7003}
-        ]
-    }
-}
-```
+//configs:
+//{
+//    admin: {
+//        webserver: {port: 7001}
+//    },
+//    main: {
+//        webserver: [
+//            {port: 7002},
+//            {port: 7003}
+//        ]
+//    }
+//}
 
-```js
 configs.forEach('webserver', function(config, projectName) {
     console.log(projectName, config);
 })
@@ -240,12 +238,12 @@ Total stream composed of streams which were returned in callbacks
 ### configs.reduce(callback)
 
 Applies a function against an accumulator and each project config (from left-to-right) to reduce it to a single stream.
-Wrap of [lodash reduce](https://lodash.com/docs#reduce)
+It is wrapper of [lodash reduce](https://lodash.com/docs#reduce)
 
 ### configs.reduceRight(callback)
 
 Applies a function against an accumulator and each project config (from left-to-right) to reduce it to a single stream.
-Wrap of [lodash reduceRight](https://lodash.com/docs#reduceRight)
+It is wrapper of [lodash reduceRight](https://lodash.com/docs#reduceRight)
 
 
 
