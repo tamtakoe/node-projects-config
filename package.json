@@ -1,7 +1,7 @@
 {
   "name": "projects-config",
   "description": "Loading configs for projects based on environment variable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": {
     "name": "tamtakoe",
     "email": "tamtakoe@gmail.com"
@@ -28,7 +28,13 @@
     "glob": "^5.0.14",
     "gulp-util": "^3.0.1",
     "stream-series": "^0.1.1",
-    "config": "^1.16.0"
+    "config": "^1.16.0",
+    "cson": "^3.0.1",
+    "hjson": "^1.2.0",
+    "js-yaml": "^3.2.2",
+    "json5": "~0.2.0",
+    "properties": "~1.2.1",
+    "toml": "^2.0.6"
   },
   "devDependencies": {},
   "scripts": {
