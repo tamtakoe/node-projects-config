@@ -176,10 +176,12 @@ Config.prototype.forEach = function(section, callback) {
 
     _.forEach(this, function(configs, projectName) {
         if (section) {
-            configs = _.get(configs, section, {});
+            configs = _.get(configs, section);
         } else {
             configs = configs || {};
         }
+
+        if (!configs) return;
 
         configs = configs instanceof Array ? configs : [configs];
 
