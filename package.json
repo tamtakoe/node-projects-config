@@ -1,7 +1,7 @@
 {
   "name": "projects-config",
   "description": "Loading configs for projects based on environment variable",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "tamtakoe",
     "email": "tamtakoe@gmail.com"

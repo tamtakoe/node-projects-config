@@ -44,7 +44,7 @@ Config.prototype.load = function compile(publicPath, localPath, params) {
     var publicConfigs = findConfigs(publicDirPaths);
     var localConfigs  = findConfigs(localDirPaths, {ignoreErrors: true});
 
-    var configs = _.merge(this, publicConfigs, localConfigs, mergeWithoutArrays);
+    var configs = _.merge(this, publicConfigs, localConfigs);
 
     //Stay config for one project
     if (project) {
@@ -112,7 +112,7 @@ Config.prototype.load = function compile(publicPath, localPath, params) {
                 }
             }
 
-            var projectConfig = _.merge({}, defaultConfig, enviromentConfig, mergeWithoutArrays);
+            var projectConfig = _.merge({}, defaultConfig, enviromentConfig);
             var defaultProjectConfig = setDefaultConfig.call(projectConfig, env, projectName);
 
             configs[projectName] = _.merge(defaultProjectConfig, projectConfig);
@@ -122,16 +122,10 @@ Config.prototype.load = function compile(publicPath, localPath, params) {
             if (!configs[parentProjectName]) {
                 throw new Error('Can not load ' + parentProjectName + ' config');
             }
-            configs[projectName] = _.merge({}, configs[parentProjectName], configs[projectName], mergeWithoutArrays);
+            configs[projectName] = _.merge({}, configs[parentProjectName], configs[projectName]);
         });
 
         return configs;
-    }
-
-    function mergeWithoutArrays(oldValue, newValue) {
-        if (_.isArray(oldValue)) {
-            return newValue;
-        }
     }
 
     return this;
